@@ -1,0 +1,31 @@
+{
+  "specId": "0edb038f-e3d5-4939-9f9a-912ad9084ca8",
+  "workflowType": "requirements-first",
+  "specType": "feature",
+  "index": "README.md",
+  "phases": {
+    "1": {
+      "status": "active",
+      "requirements": "phase-1/requirements.md",
+      "design": "phase-1/design.md",
+      "tasks": "phase-1/tasks.md"
+    },
+    "2": {
+      "status": "skeleton",
+      "requirements": "phase-2/requirements.md",
+      "design": "phase-2/design.md",
+      "tasks": "phase-2/tasks.md"
+    },
+    "3": {
+      "status": "skeleton",
+      "requirements": "phase-3/requirements.md",
+      "design": "phase-3/design.md",
+      "tasks": "phase-3/tasks.md"
+    }
+  },
+  "stableContracts": {
+    "telemetryTopic": "devices/{Thing_Name}/telemetry",
+    "eventsTopic": "devices/{Thing_Name}/events",
+    "payloadBaseFields": ["device_id", "ts", "type"]
+  }
+}

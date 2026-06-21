@@ -1,0 +1,57 @@
+{
+  "aws_iot_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "atqf2s9yjyiuu-ats.iot.ap-southeast-2.amazonaws.com"
+  },
+  "aws_region": {
+    "sensitive": false,
+    "type": "string",
+    "value": "ap-southeast-2"
+  },
+  "environment": {
+    "sensitive": false,
+    "type": "string",
+    "value": "dev"
+  },
+  "events_rule_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:iot:ap-southeast-2:405087531484:rule/esp32_demo_events_rule"
+  },
+  "events_rule_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "esp32_demo_events_rule"
+  },
+  "events_table_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "esp32-demo-dev-events"
+  },
+  "lambda_processor_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:lambda:ap-southeast-2:405087531484:function:esp32-demo-dev-lambda-processor"
+  },
+  "lambda_processor_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "esp32-demo-dev-lambda-processor"
+  },
+  "telemetry_rule_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:iot:ap-southeast-2:405087531484:rule/esp32_demo_telemetry_rule"
+  },
+  "telemetry_rule_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "esp32_demo_telemetry_rule"
+  },
+  "telemetry_table_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "esp32-demo-dev-telemetry"
+  }
+}

@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ESP32 demo Phase 1 shared infra — IoT Rules to CloudWatch Logs
+
+Resources:
+  IotRuleRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: esp32-demo-iot-rule-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: iot.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: esp32-demo-iot-rule-logs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/iot/esp32-demo/telemetry:*'
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/iot/esp32-demo/events:*'
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/iot/esp32-demo/errors:*'
+
+  TelemetryLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/iot/esp32-demo/telemetry
+      RetentionInDays: 7
+
+  EventsLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/iot/esp32-demo/events
+      RetentionInDays: 7
+
+  ErrorsLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/iot/esp32-demo/errors
+      RetentionInDays: 14
+
+  TelemetryRule:
+    Type: AWS::IoT::TopicRule
+    DependsOn:
+      - IotRuleRole
+      - TelemetryLogGroup
+      - ErrorsLogGroup
+    Properties:
+      RuleName: esp32_demo_telemetry_rule
+      TopicRulePayload:
+        Sql: "SELECT * FROM 'devices/+/telemetry'"
+        AwsIotSqlVersion: '2016-03-23'
+        RuleDisabled: false
+        Actions:
+          - CloudwatchLogs:
+              LogGroupName: /aws/iot/esp32-demo/telemetry
+              RoleArn: !GetAtt IotRuleRole.Arn
+        ErrorAction:
+          CloudwatchLogs:
+            LogGroupName: /aws/iot/esp32-demo/errors
+            RoleArn: !GetAtt IotRuleRole.Arn
+
+  EventsRule:
+    Type: AWS::IoT::TopicRule
+    DependsOn:
+      - IotRuleRole
+      - EventsLogGroup
+      - ErrorsLogGroup
+    Properties:
+      RuleName: esp32_demo_events_rule
+      TopicRulePayload:
+        Sql: "SELECT * FROM 'devices/+/events'"
+        AwsIotSqlVersion: '2016-03-23'
+        RuleDisabled: false
+        Actions:
+          - CloudwatchLogs:
+              LogGroupName: /aws/iot/esp32-demo/events
+              RoleArn: !GetAtt IotRuleRole.Arn
+        ErrorAction:
+          CloudwatchLogs:
+            LogGroupName: /aws/iot/esp32-demo/errors
+            RoleArn: !GetAtt IotRuleRole.Arn
+
+Outputs:
+  IotRuleRoleArn:
+    Description: IAM role assumed by IoT Rules for CloudWatch Logs
+    Value: !GetAtt IotRuleRole.Arn
