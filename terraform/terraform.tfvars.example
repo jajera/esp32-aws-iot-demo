@@ -1,0 +1,17 @@
+environment = "dev"
+aws_region  = "ap-southeast-2"
+
+# Leave as-is to preserve Phase 1 stable contracts.
+telemetry_topic_pattern = "devices/+/telemetry"
+events_topic_pattern    = "devices/+/events"
+
+# PAY_PER_REQUEST is enough for demo workloads.
+billing_mode = "PAY_PER_REQUEST"
+
+# Phase 3 API + dashboard
+cors_allow_origins = ["*"]
+api_stage_name     = "$default"
+
+# Amplify: app is always created; deploy runs on apply by default.
+deploy_amplify_on_apply = true
+# amplify_app_name = "esp32-demo-dev-dashboard"

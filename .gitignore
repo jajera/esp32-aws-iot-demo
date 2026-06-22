@@ -1,0 +1,37 @@
+# Local generated secret headers (file-specific)
+/firmware/include/config.h
+/firmware/include/certs.h
+!/firmware/include/config.example.h
+!/firmware/include/certs.example.h
+firmware/**/*.pem
+firmware/certs/
+
+# AWS bootstrap generated artifacts (IAM policies, rendered rules)
+aws/generated/
+
+# PlatformIO build outputs
+.pio/
+**/.pio/
+.pioenvs/
+.piolibdeps/
+
+# OS/editor noise
+.DS_Store
+*.swp
+*.swo
+
+# Terraform artifacts
+.terraform/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+terraform/terraform.tfvars
+
+# Python test/build artifacts
+__pycache__/
+*.pyc
+
+# Web dashboard artifacts
+web/node_modules/
+web/dist/

@@ -1,0 +1,19 @@
+{
+  "sql": "SELECT * FROM 'devices/+/telemetry'",
+  "awsIotSqlVersion": "2016-03-23",
+  "ruleDisabled": false,
+  "actions": [
+    {
+      "cloudwatchLogs": {
+        "logGroupName": "/aws/iot/esp32-demo/telemetry",
+        "roleArn": "REPLACE_WITH_IOT_RULES_ROLE_ARN"
+      }
+    }
+  ],
+  "errorAction": {
+    "cloudwatchLogs": {
+      "logGroupName": "/aws/iot/esp32-demo/errors",
+      "roleArn": "REPLACE_WITH_IOT_RULES_ROLE_ARN"
+    }
+  }
+}
